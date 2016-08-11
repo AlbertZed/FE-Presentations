@@ -1,8 +1,7 @@
 # Why Redux
 
-* From a purely technology standpoint, I don’t feel strongly that Redux is necessarily better than other options.
 * What Redux did do is popularize a lot of important design patterns that useful when constructing React applications
-  * Separating view from business logic AKA dumb components vs smart components aka regular components vs containers
+* Separating view from business logic AKA dumb components vs smart components aka regular components vs containers
 
 ## Higher Order Components
 (Derived from higher order functions - functional programming)
@@ -113,9 +112,65 @@ function connect(mapStateToProps, actionCreators) {
 
 export default connect(mapStateToProps, { loadWeather })(WeatherList);
 ```
-* **SHOW THE ReactReduxStarter** git branch feature/open-weather
 
-* Redux Ecosystem
-  * Reselect - **maybe show them The RNNYT Book app**
-  * Middleware / Redux Thunk / Redux Promise
-  * 
+## Redux Data Flow
+```
+(Circular data flow)
+
+  =================
+  |               |
+  |     View      |
+  |               |
+  =================
+          |
+          | (Executes action creators)
+          Y
+  =================
+  |    Action     |
+  |    Creator    |
+  |               |
+  =================
+          |
+          | (Dispatches action objects)
+          Y
+  =================
+  |     Redux     |
+  |   Middleware  |
+  |   (optional)  |
+  =================
+          |
+          |
+          Y
+  =================
+  |               |
+  |    Reducers   |
+  |               |
+  =================
+          |
+          | (Returns new state)
+          Y
+  =================
+  |               |
+  |     Store     |
+  |               |
+  =================
+          |
+          | (props via containers)
+          Y
+  =================
+  |               |
+  |     View      |
+  |               |
+  =================
+```
+
+### Code Review
+1. Review existing component
+2. Review CSS
+3. Redux (sync)
+  1. Define state in store
+  2. Create actions, action creators, and reducers
+  3. Wrap the component with `connect`
+  4. Update the component to be a dumb component
+  5. Create a new action creator that's async
+4. CSS Modules
